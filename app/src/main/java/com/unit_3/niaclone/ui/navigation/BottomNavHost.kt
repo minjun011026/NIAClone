@@ -22,9 +22,9 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.unit_3.niaclone.ui.view.ForYouView
-import com.unit_3.niaclone.ui.view.InterestsView
-import com.unit_3.niaclone.ui.view.SavedView
+import com.unit_3.niaclone.ui.foryou.ForYouView
+import com.unit_3.niaclone.ui.interests.InterestsView
+import com.unit_3.niaclone.ui.saved.SavedView
 
 @Composable
 fun BottomNavHost() {
@@ -74,18 +74,17 @@ fun BottomNavHost() {
                     }
                 }
             }
-        ) {
-                innerPadding ->
+        ) { innerPadding ->
             ContentScreen(modifier = Modifier.padding(innerPadding), selectedItemIndex)
         }
     }
 }
 
 @Composable
-fun ContentScreen(modifier: Modifier = Modifier, selectedIndex : Int){
-    when(selectedIndex){
-        0-> ForYouView(modifier)
-        1-> SavedView(modifier)
-        2-> InterestsView(modifier)
+fun ContentScreen(modifier: Modifier = Modifier, selectedIndex: Int) {
+    when (selectedIndex) {
+        0 -> ForYouView(modifier)
+        1 -> SavedView(modifier)
+        2 -> InterestsView(modifier)
     }
 }

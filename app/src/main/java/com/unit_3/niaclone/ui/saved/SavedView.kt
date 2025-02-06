@@ -1,4 +1,4 @@
-package com.unit_3.niaclone.ui.view
+package com.unit_3.niaclone.ui.saved
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
