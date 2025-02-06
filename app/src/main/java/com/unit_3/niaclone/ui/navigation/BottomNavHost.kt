@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.unit_3.niaclone.ui.navigation.component.TopBar
 import com.unit_3.niaclone.ui.foryou.ForYouView
 import com.unit_3.niaclone.ui.interests.InterestsView
 import com.unit_3.niaclone.ui.saved.SavedView
@@ -53,6 +54,7 @@ fun BottomNavHost() {
         color = MaterialTheme.colorScheme.background
     ) {
         Scaffold(
+            topBar = { TopBar(ScreenTitle.fromIndex(selectedItemIndex)) },
             bottomBar = {
                 NavigationBar {
                     items.forEachIndexed { index, item ->
