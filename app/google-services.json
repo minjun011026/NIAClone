@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "829219656593",
+    "project_id": "niaclone-a71bc",
+    "storage_bucket": "niaclone-a71bc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829219656593:android:84e30c9db095cda0064030",
+        "android_client_info": {
+          "package_name": "com.unit_3.niaclone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr4v_Pp3JZpLyeTzHwbg3zaqJ509inQQk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
