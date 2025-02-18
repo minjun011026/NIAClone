@@ -66,4 +66,4 @@ They should be easy to scan for relevant and actionable information. Elements, l
 Material Design Guidelines를 보니 Card는 Surface의 일종으로 Surface로 구성되어 단일 목적으로 쓰이는 UI인 것 같다.
 그렇기에 Surface가 더 가벼운 것으로 보인다.
 
-그렇다면 
+그렇다면 Suface를 쓰는 것이 적합해 보인다.

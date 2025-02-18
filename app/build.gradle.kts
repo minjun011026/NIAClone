@@ -82,4 +82,10 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.firestore)
 
+    //Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
+    //Chrome Custom tabs
+    implementation(libs.androidx.browser)
 }
