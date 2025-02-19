@@ -12,6 +12,8 @@ Firebase 저장소에 URL 형식으로 이미지가 저장되어 있는데 이�
 GPT는 이렇게 비교해주었다. GPT는 `Coil`을 추천했는데 여기서 또 의문이 드는 것은 설명을 보면 `Glide`가 고해상도 처리와 성능적 우위를 갖는 것으로 보이는데 왜 `Coil`을 권장하는가 였다.
 이에 대한 의문과 해결을 다음과 같이 정리하였다.
 
+[Coil vs Glide](https://velog.io/@couch_potato/Android-Coil-vs-Glide-in-Compose)
+
 임시값은 전부 동일한 이미지URL을 갖고 있어 `Glide`가 더 적합하지만   
 실제 데이터로 이미지를 가져온다면 이미지의 종류가 많고 이 경우에는 `Coil`이 더 적합하다.   
 그렇기에 실제로 가정하여 `Coil`을 사용하는 것이 적합하다고 판단하였다.   
