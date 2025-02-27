@@ -16,4 +16,5 @@ Jetpack Compose대한 이해와 안드로이드 개발에 대한 전반적인 �
 [2일차](https://github.com/minjun011026/NIAClone/blob/main/docs/day2.md)   
 [3일차](https://github.com/minjun011026/NIAClone/blob/main/docs/day3.md)   
 [4일차](https://github.com/minjun011026/NIAClone/blob/main/docs/day4.md)   
-[5일차](https://github.com/minjun011026/NIAClone/blob/main/docs/day5.md)
+[5일차](https://github.com/minjun011026/NIAClone/blob/main/docs/day5.md)   
+[6일차]()

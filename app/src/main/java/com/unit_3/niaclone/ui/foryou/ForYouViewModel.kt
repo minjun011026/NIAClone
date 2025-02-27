@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ForYouViewModel @Inject constructor(
-    private val getInterestNewsUseCase: GetInterestNewsUseCase,
+    getInterestNewsUseCase: GetInterestNewsUseCase,
     private val userDataRepository: UserDataRepository
 ) : ViewModel() {
 

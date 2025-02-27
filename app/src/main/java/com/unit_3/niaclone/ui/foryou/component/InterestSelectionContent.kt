@@ -30,12 +30,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.unit_3.niaclone.data.repository.TopicRepository
 import com.unit_3.niaclone.ui.foryou.ForYouViewModel
 
 @Composable
 fun InterestSelectContent(viewModel : ForYouViewModel){
 
-    val interests = listOf("Headlines", "UI", "Compose", "Architecture", "Kotlin", "Performance")
+    val interests = TopicRepository.interests
     val selectedInterests = remember { mutableStateListOf<String>() }
 
     Column(

@@ -8,6 +8,7 @@ import javax.inject.Inject
 class UserDataRepository @Inject constructor(
     private val dao: UserInterestDao
 ){
+
     fun getInterests(): Flow<List<UserInterest>> = dao.getAllInterests()
 
     suspend fun addInterest(interest: String) {
