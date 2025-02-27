@@ -22,13 +22,14 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import com.unit_3.niaclone.ui.navigation.component.TopBar
 import com.unit_3.niaclone.ui.foryou.ForYouView
 import com.unit_3.niaclone.ui.interests.InterestsView
 import com.unit_3.niaclone.ui.saved.SavedView
 
 @Composable
-fun BottomNavHost() {
+fun BottomNavHost(navController: NavHostController) {
     val items = listOf(
         NavigationItem(
             title = "ForYou",
@@ -46,9 +47,11 @@ fun BottomNavHost() {
             unselectedIcon = Icons.Outlined.Tag
         )
     )
+
     var selectedItemIndex by rememberSaveable {
         mutableIntStateOf(0)
     }
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -77,16 +80,16 @@ fun BottomNavHost() {
                 }
             }
         ) { innerPadding ->
-            ContentScreen(modifier = Modifier.padding(innerPadding), selectedItemIndex)
+            ContentScreen(modifier = Modifier.padding(innerPadding), selectedItemIndex, navController)
         }
     }
 }
 
 @Composable
-fun ContentScreen(modifier: Modifier = Modifier, selectedIndex: Int) {
+fun ContentScreen(modifier: Modifier = Modifier, selectedIndex: Int, navController: NavHostController) {
     when (selectedIndex) {
         0 -> ForYouView(modifier)
         1 -> SavedView(modifier)
-        2 -> InterestsView(modifier)
+        2 -> InterestsView(modifier = modifier, navController = navController)
     }
 }

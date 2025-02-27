@@ -18,10 +18,10 @@ class ForYouViewModel @Inject constructor(
     private val userDataRepository: UserDataRepository
 ) : ViewModel() {
 
-    val savedInterests: StateFlow<List<News>> = getInterestNewsUseCase().stateIn(
+    val savedInterests: StateFlow<List<News>?> = getInterestNewsUseCase().stateIn(
             scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = emptyList()
+            started = SharingStarted.Eagerly,
+            initialValue = null
         )
 
     fun saveInterests(interests: List<String>) {

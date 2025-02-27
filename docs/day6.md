@@ -78,3 +78,100 @@ object TopicRepository {
 
 이다.
 
+### 1번
+```kotlin
+@HiltViewModel
+class InterestsViewModel @Inject constructor(
+    private val userDataRepository: UserDataRepository
+) : ViewModel() {
+
+    val userInterest = userDataRepository.getInterests().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Lazily,
+        initialValue = emptyList()
+    )
+
+    fun toggleInterest(interest: String, isInterest : Boolean) {
+        viewModelScope.launch {
+            if (isInterest) {
+                userDataRepository.deleteInterestById(interest)
+            } else {
+                userDataRepository.addInterest(interest)
+            }
+        }
+    }
+}
+```
+`InterestViewModel`에서도 `UserDataRepository`를 통해 userInterest를 받아오고   
+이것을 View에서
+```kotlin
+val isInterest = userInterest.any { it.interest == interest }
+```
+미리 여부를 판단하고 전달해주어 연산횟수를 줄인다. isInterest를 `InterestItem`에도 전달해서 `+` 버튼을 체크로 바꿀지 결정한다.
+
+이렇게 하면 1번 기능이 완성된다.
+
+### 2번
+문제는 2번이다.   
+기존에 했던 방식과 동일하게 Composable함수를 View로서 호출하니 기존의 화면 위에 겹쳐졌다.  
+원인을 찾아보니 Compose에서는 `NavController`를 사용해서 화면이동을 해야하는데   
+그냥 
+```kotlin
+if (selectedInterest.isNotEmpty()) {
+        InterestDetailView(modifier = modifier, interest = selectedInterest)
+    }
+```
+이런 식으로 호출해버려서 겹쳐지는 문제가 발생한다고 하였다.
+![img_12.png](img_12.png)
+
+그렇기에 Detail 화면 이동도 `navigation`을 통해 이루어져야 한다.
+```kotlin
+@Composable
+fun NiaApp(
+) {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "main") {
+        composable("main") { BottomNavHost(navController) }
+        composable("interestDetail/{interestName}") { backStackEntry ->
+            val interestName = backStackEntry.arguments?.getString("interestName") ?: ""
+            InterestDetailView(interest = interestName)
+        }
+    }
+}
+```
+기존 `NiaApp`을 위와 같이 수정해준다.   
+원래는 하단 네비게이션바로만 화면을 이동하여 별도의 추가 작업이 없었으나   
+하단 바로 이동되는 `main` 그리고 각 Intrest의 세부화면으로 화면을 구분한다.
+
+화면 구성은 동일하므로 주제만을 받아주고 이를 통해 내용만 변경해주도록 해준다.
+
+그리고 `navController`는 `InterestView`에서만 필요하므로 다른 View에는 전달하지 않는다.
+```kotlin
+@Composable
+fun ContentScreen(modifier: Modifier = Modifier, selectedIndex: Int, navController: NavHostController) {
+    when (selectedIndex) {
+        0 -> ForYouView(modifier)
+        1 -> SavedView(modifier)
+        2 -> InterestsView(modifier = modifier, navController = navController)
+    }
+}
+```
+
+이후에는 기존의 `InterestItem`의 `onItemClick`을 수정해주기만 하면 된다.
+```kotlin
+        InterestItem(
+            name = interest,
+            isInterest = isInterest,
+            onItemClick = { name ->
+                navController.navigate("interestDetail/$name")
+            },
+            onToggleClick = { viewModel.toggleInterest(interest, isInterest) }
+        )
+```
+
+여기서 확인한 건 바텀바를 이용한 이동은 부드러운 느낌이 없고 `navController`를 통한 이동은 부드러운 느낌을 주었다.   
+이것을 바텀바에도 적용시켜보자.
+
+방법을 찾아보니 현재는 화면 이동을 아예`navController`로만 수행하는 방법이 있었다.   
+무조건 `navController`를 적용해야만 하는 지 그렇다면 안 썻을 때의 장단점이 무엇인지를 확인해보고 싶다.   
+현재로서는 안 썼을 때 코드가 더 깔끔하기에 확인후 이를 개선해보아야할 듯하다.
