@@ -17,39 +17,58 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.unit_3.niaclone.ui.navigation.component.TopBar
 import com.unit_3.niaclone.ui.foryou.ForYouView
+import com.unit_3.niaclone.ui.interestDetail.InterestDetailView
 import com.unit_3.niaclone.ui.interests.InterestsView
+import com.unit_3.niaclone.ui.navigation.component.Dest
 import com.unit_3.niaclone.ui.saved.SavedView
 
 @Composable
-fun BottomNavHost(navController: NavHostController) {
+fun NiaNavHost() {
+
+    val navController = rememberNavController()
+
     val items = listOf(
         NavigationItem(
             title = "ForYou",
             selectedIcon = Icons.Filled.Upcoming,
-            unselectedIcon = Icons.Outlined.Upcoming
+            unselectedIcon = Icons.Outlined.Upcoming,
+            route = Dest.ForYou
         ),
         NavigationItem(
             title = "Saved",
             selectedIcon = Icons.Filled.Bookmarks,
-            unselectedIcon = Icons.Outlined.Bookmarks
+            unselectedIcon = Icons.Outlined.Bookmarks,
+            route = Dest.Saved
         ),
         NavigationItem(
             title = "Interests",
             selectedIcon = Icons.Filled.Tag,
-            unselectedIcon = Icons.Outlined.Tag
+            unselectedIcon = Icons.Outlined.Tag,
+            route = Dest.Interests
         )
     )
 
-    var selectedItemIndex by rememberSaveable {
-        mutableIntStateOf(0)
+    val currentBackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = currentBackEntry?.destination?.route
+
+    var selectedItemIndex by remember { mutableIntStateOf(0) }
+
+    LaunchedEffect(currentDestination) {
+        selectedItemIndex = items.indexOfFirst { currentDestination?.contains(it.title) == true }
+            .takeIf { it != -1 } ?: 0
     }
 
     Surface(
@@ -65,6 +84,13 @@ fun BottomNavHost(navController: NavHostController) {
                             selected = selectedItemIndex == index,
                             onClick = {
                                 selectedItemIndex = index
+                                navController.navigate(item.route) {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                    popUpTo(navController.graph.startDestinationId) {
+                                        saveState = true
+                                    }
+                                }
                             },
                             label = {
                                 Text(text = item.title)
@@ -80,16 +106,27 @@ fun BottomNavHost(navController: NavHostController) {
                 }
             }
         ) { innerPadding ->
-            ContentScreen(modifier = Modifier.padding(innerPadding), selectedItemIndex, navController)
+            NavHost(
+                navController = navController,
+                startDestination = Dest.ForYou
+            ) {
+                composable<Dest.ForYou> {
+                    ForYouView(modifier = Modifier.padding(innerPadding))
+                }
+                composable<Dest.Saved> {
+                    SavedView(modifier = Modifier.padding(innerPadding))
+                }
+                composable<Dest.Interests> {
+                    InterestsView(
+                        modifier = Modifier.padding(innerPadding),
+                        navController = navController
+                    )
+                }
+                composable<Dest.InterestDetail> {
+                    val args = it.toRoute<Dest.InterestDetail>()
+                    InterestDetailView(args.interest)
+                }
+            }
         }
-    }
-}
-
-@Composable
-fun ContentScreen(modifier: Modifier = Modifier, selectedIndex: Int, navController: NavHostController) {
-    when (selectedIndex) {
-        0 -> ForYouView(modifier)
-        1 -> SavedView(modifier)
-        2 -> InterestsView(modifier = modifier, navController = navController)
     }
 }

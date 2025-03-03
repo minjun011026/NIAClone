@@ -12,14 +12,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.unit_3.niaclone.data.repository.TopicRepository
 import com.unit_3.niaclone.ui.interests.component.InterestItem
+import com.unit_3.niaclone.ui.navigation.component.Dest
 
 @Composable
 fun InterestsView(
     modifier: Modifier,
-    navController: NavController,
+    navController : NavHostController,
     viewModel: InterestsViewModel = hiltViewModel()
 ) {
     val interests = TopicRepository.interests
@@ -39,7 +40,7 @@ fun InterestsView(
                 name = interest,
                 isInterest = isInterest,
                 onItemClick = { name ->
-                    navController.navigate("interestDetail/$name")
+                    navController.navigate(Dest.InterestDetail(name))
                 },
                 onToggleClick = { viewModel.toggleInterest(interest, isInterest) }
             )

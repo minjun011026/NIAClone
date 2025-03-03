@@ -14,7 +14,10 @@ import com.unit_3.niaclone.ui.foryou.component.InterestSelectContent
 import com.unit_3.niaclone.ui.foryou.component.NewsContent
 
 @Composable
-fun ForYouView(modifier: Modifier, viewModel: ForYouViewModel = hiltViewModel()) {
+fun ForYouView(
+    modifier: Modifier = Modifier,
+    viewModel: ForYouViewModel = hiltViewModel()
+) {
 
     val newsList by viewModel.savedInterests.collectAsState()
 
@@ -27,9 +30,11 @@ fun ForYouView(modifier: Modifier, viewModel: ForYouViewModel = hiltViewModel())
             newsList == null -> item {
                 CircularProgressIndicator()
             }
+
             newsList!!.isEmpty() -> item {
                 InterestSelectContent(viewModel)
             }
+
             else -> items(newsList!!) { news ->
                 NewsContent(news)
             }

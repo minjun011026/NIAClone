@@ -74,7 +74,7 @@ object TopicRepository {
 
 남은 기능은 
 1. `+` 버튼으로 `UserInterest` 추가 및 이미 포함되었다면 체크 아이콘으로 변경과 제거 기능으로 작동하도록 하는 것
-2. listitem 터치시 해당 Topic 페이지르 이동
+2. listitem 터치시 해당 Topic 페이지로 이동
 
 이다.
 
@@ -141,7 +141,7 @@ fun NiaApp(
 ```
 기존 `NiaApp`을 위와 같이 수정해준다.   
 원래는 하단 네비게이션바로만 화면을 이동하여 별도의 추가 작업이 없었으나   
-하단 바로 이동되는 `main` 그리고 각 Intrest의 세부화면으로 화면을 구분한다.
+하단 바로 이동되는 `main` 그리고 각 Interest의 세부화면으로 화면을 구분한다.
 
 화면 구성은 동일하므로 주제만을 받아주고 이를 통해 내용만 변경해주도록 해준다.
 
@@ -172,6 +172,6 @@ fun ContentScreen(modifier: Modifier = Modifier, selectedIndex: Int, navControll
 여기서 확인한 건 바텀바를 이용한 이동은 부드러운 느낌이 없고 `navController`를 통한 이동은 부드러운 느낌을 주었다.   
 이것을 바텀바에도 적용시켜보자.
 
-방법을 찾아보니 현재는 화면 이동을 아예`navController`로만 수행하는 방법이 있었다.   
+방법을 찾아보니 화면 이동을 아예`navController`로만 수행하는 방법이 있었다.   
 무조건 `navController`를 적용해야만 하는 지 그렇다면 안 썻을 때의 장단점이 무엇인지를 확인해보고 싶다.   
 현재로서는 안 썼을 때 코드가 더 깔끔하기에 확인후 이를 개선해보아야할 듯하다.

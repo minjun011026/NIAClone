@@ -1,4 +1,4 @@
-package com.unit_3.niaclone.ui.interests
+package com.unit_3.niaclone.ui.interestDetail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
