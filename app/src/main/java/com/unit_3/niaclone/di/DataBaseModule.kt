@@ -3,6 +3,7 @@ package com.unit_3.niaclone.di
 import android.content.Context
 import androidx.room.Room
 import com.unit_3.niaclone.data.local.AppDatabase
+import com.unit_3.niaclone.data.local.BookmarkDao
 import com.unit_3.niaclone.data.local.UserInterestDao
 import dagger.Module
 import dagger.Provides
@@ -31,4 +32,9 @@ object DataBaseModule {
         return database.userInterestDao()
     }
 
+    @Provides
+    @Singleton
+    fun provideBookmarkDao(database: AppDatabase): BookmarkDao {
+        return database.bookmarkDao()
+    }
 }

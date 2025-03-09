@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
-class NewsRepository @Inject constructor(
+class FirebaseRepository @Inject constructor(
     firestore: FirebaseFirestore
 ) {
     private val newsCollection = firestore.collection("news")

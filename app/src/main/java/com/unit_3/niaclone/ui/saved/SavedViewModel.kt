@@ -1,4 +1,4 @@
-package com.unit_3.niaclone.ui.foryou
+package com.unit_3.niaclone.ui.saved
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,24 +13,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ForYouViewModel @Inject constructor(
-    getInterestNewsUseCase: NewsUseCase,
+class SavedViewModel @Inject constructor(
+    getBookmarkNewsUseCase: NewsUseCase,
     private val userDataRepository: UserDataRepository
 ) : ViewModel() {
 
-    val savedInterests: StateFlow<List<News>?> = getInterestNewsUseCase.getSubscribedNews().stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Eagerly,
-            initialValue = null
-        )
-
-    fun saveInterests(interests: List<String>) {
-        viewModelScope.launch {
-            interests.forEach { interest ->
-                userDataRepository.addInterest(interest)
-            }
-        }
-    }
+    val bookmarkNews: StateFlow<List<News>?> = getBookmarkNewsUseCase.getBookmarkedNews().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = null
+    )
 
     fun toggleBookmarks(newsName: String, isBookmarked: Boolean) {
         viewModelScope.launch {

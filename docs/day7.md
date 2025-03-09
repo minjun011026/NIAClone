@@ -136,3 +136,5 @@ val currentBackEntry by navController.currentBackStackEntryAsState()
             .takeIf { it != -1 } ?: 0
     }
 ```
+
+KClass에 보다 특화된 방법이 있는지 더 알아보아야할 듯 하다.

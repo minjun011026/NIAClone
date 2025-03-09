@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -62,12 +63,11 @@ fun NiaNavHost() {
     )
 
     val currentBackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = currentBackEntry?.destination?.route
-
     var selectedItemIndex by remember { mutableIntStateOf(0) }
+    val currentDestination = currentBackEntry?.destination
 
     LaunchedEffect(currentDestination) {
-        selectedItemIndex = items.indexOfFirst { currentDestination?.contains(it.title) == true }
+        selectedItemIndex = items.indexOfFirst { currentDestination?.hasRoute(it.route::class) == true }
             .takeIf { it != -1 } ?: 0
     }
 

@@ -15,7 +15,7 @@ Interests는 Interest 목록을 보여주고 `+`버튼으로 추가할 수 있�
 
 방법을 못 찾겠어서 NowInAndroid 코드를 살펴보니 `ListItem`이라는 것을 사용하는 것을 볼 수 있었다.
 
-```kotlin
+```kt
 public fun ListItem(
     headlineContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,

@@ -36,7 +36,12 @@ fun ForYouView(
             }
 
             else -> items(newsList!!) { news ->
-                NewsContent(news)
+                NewsContent(
+                    news = news,
+                    onBookmarkClicked = { name, isBookmarked ->
+                        viewModel.toggleBookmarks(name, isBookmarked)
+                    }
+                )
             }
         }
     }

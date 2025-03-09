@@ -9,5 +9,6 @@ data class News(
     val newsType: String = "",
     val detail: String = "",
     val interest: List<String> = emptyList(),
-    val newsUrl: String = ""
+    val newsUrl: String = "",
+    var isBookmarked: Boolean = false
 )

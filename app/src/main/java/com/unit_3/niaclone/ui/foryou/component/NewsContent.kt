@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
@@ -29,9 +30,11 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.unit_3.niaclone.data.model.News
 
-
 @Composable
-fun NewsContent(news: News) {
+fun NewsContent(
+    news: News,
+    onBookmarkClicked: (String, Boolean) -> Unit
+) {
     val context = LocalContext.current
 
     Surface(
@@ -61,7 +64,9 @@ fun NewsContent(news: News) {
                             .padding(8.dp)
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.BookmarkBorder,
+                            modifier = Modifier
+                                .clickable { onBookmarkClicked(news.name, news.isBookmarked) },
+                            imageVector = if(news.isBookmarked) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder,
                             contentDescription = null,
                             tint = Color.White
                         )
@@ -82,18 +87,17 @@ fun NewsContent(news: News) {
                     color = Color.White
                 )
                 LazyRow {
-                    items(news.interest) {
-                        interest ->
+                    items(news.interest) { interest ->
                         AssistChip(
                             modifier = Modifier
                                 .padding(2.dp),
-                            onClick ={},
+                            onClick = {},
                             label = {
                                 Text(
                                     text = interest,
                                     fontSize = 12.sp
                                 )
-                             },
+                            },
                             colors = AssistChipDefaults.assistChipColors(
                                 containerColor = Color.Gray,
                                 labelColor = Color.White
