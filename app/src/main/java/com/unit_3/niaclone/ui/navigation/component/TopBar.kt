@@ -9,6 +9,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.font.FontWeight
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -16,6 +20,9 @@ import androidx.compose.ui.text.font.FontWeight
 fun TopBar(
     title: String,
 ) {
+
+    var showDialog by rememberSaveable { mutableStateOf(false) }
+
     CenterAlignedTopAppBar(
         title = { Text(text = title, fontWeight = FontWeight.Bold) },
         navigationIcon = {
@@ -27,7 +34,9 @@ fun TopBar(
             }
         },
         actions = {
-            IconButton(onClick = { /* 설정 동작 처리 */ }) {
+            IconButton(onClick = {
+                showDialog = true
+            }) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
                     contentDescription = "Settings"
@@ -35,4 +44,10 @@ fun TopBar(
             }
         }
     )
+
+    if (showDialog) {
+        SettingDialog(
+            onDismissRequest = { showDialog = false }
+        )
+    }
 }
