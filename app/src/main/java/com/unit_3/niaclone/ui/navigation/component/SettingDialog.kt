@@ -7,7 +7,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.unit_3.niaclone.ui.theme.NIACloneTheme
 
 @Composable
 fun SettingDialog(
@@ -79,7 +79,7 @@ fun DialogDetail() {
 fun ThemeSetting() {
     val themeOptions = listOf("Default", "Android")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(themeOptions[0]) }
-
+    val title = "Theme"
     Text(
         text = "Theme",
         fontSize = 18.sp,
@@ -124,6 +124,7 @@ fun ThemeSetting() {
     ) {
         UseDynamicColor()
     }
+
 }
 
 @Composable
